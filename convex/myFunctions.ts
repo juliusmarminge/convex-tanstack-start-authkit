@@ -33,5 +33,11 @@ export const addNumber = mutation({
   handler: async (ctx, args) => {
     const id = await ctx.db.insert("numbers", { value: args.value });
     console.log("Added new document with id:", id);
+    let i = 0;
+    while (i < 1e7) {
+      Math.sin(i) + Math.cos(i);
+      i++;
+    }
+    console.log("Finished expensive operation");
   },
 });
