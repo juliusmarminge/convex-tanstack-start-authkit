@@ -1,0 +1,2 @@
+patchedDependencies:
+  '@workos/authkit-tanstack-react-start': patches/@workos__authkit-tanstack-react-start.patch
