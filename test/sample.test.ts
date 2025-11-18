@@ -1,3 +1,7 @@
+/**
+ * Sample unit test that runs in Node.
+ */
+
 import { expect, test } from "vitest";
 
 test("sample", () => {
