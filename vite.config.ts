@@ -1,3 +1,4 @@
+import { nitro } from "nitro/vite";
 import { defineConfig, mergeConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -12,12 +13,7 @@ const baseConfig = defineConfig({
   server: {
     port: 3000,
   },
-  plugins: [
-    tanstackStart(),
-    viteReact(),
-    tailwindcss(),
-    //nitro()
-  ],
+  plugins: [tanstackStart(), viteReact(), tailwindcss(), nitro()],
 });
 
 const baseTestConfig = mergeConfig(
