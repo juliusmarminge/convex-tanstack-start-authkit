@@ -1,3 +1,4 @@
+import * as Crypto from "node:crypto";
 import * as FS from "node:fs";
 import * as FSP from "node:fs/promises";
 import * as OS from "node:os";
@@ -18,6 +19,7 @@ export class ConvexBackend {
   private readonly instanceName: string;
   private readonly instanceSecret: string;
   private readonly adminKey: string;
+  private readonly randomSuffix: string;
 
   get client(): ConvexHttpClient {
     if (!this._client) throw new Error("Backend not initialized");
@@ -36,10 +38,11 @@ export class ConvexBackend {
     this.instanceName = options.instanceName;
     this.instanceSecret = options.instanceSecret;
     this.adminKey = options.adminKey;
+    this.randomSuffix = Crypto.randomBytes(16).toString("hex");
   }
 
   async init(env: Record<string, string>): Promise<void> {
-    const backendDir = Path.join(this.projectDir, ".convex-e2e-test");
+    const backendDir = Path.join(this.projectDir, ".convex", this.randomSuffix);
 
     console.log("🚀 Starting Convex backend...");
     await this.startBackend(backendDir);
@@ -192,7 +195,7 @@ export class ConvexBackend {
 
     if (cleanup) {
       console.log(`🧹 Cleaning up backend files...`);
-      await FSP.rm(Path.join(this.projectDir, ".convex-e2e-test"), {
+      await FSP.rm(Path.join(this.projectDir, ".convex", this.randomSuffix), {
         recursive: true,
       });
     }

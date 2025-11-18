@@ -14,7 +14,8 @@
     "incremental": true,
     "strictNullChecks": true,
     "allowImportingTsExtensions": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "tsBuildInfoFile": "./.cache/tsbuildinfo.json"
   },
   "include": ["**/*"],
   "exclude": ["node_modules"]
