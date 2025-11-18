@@ -1,2 +1,5 @@
+overrides:
+  vite: npm:rolldown-vite@7.2.5
+  
 patchedDependencies:
   '@workos/authkit-tanstack-react-start': patches/@workos__authkit-tanstack-react-start.patch
