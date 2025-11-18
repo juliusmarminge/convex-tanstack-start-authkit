@@ -1,7 +1,7 @@
 import { expect } from "vitest";
-import { AddNumberButton, Numbers } from "../src/component/numbers";
+import { AddNumberButton, Numbers } from "./numbers";
 import { render } from "vitest-browser-react";
-import { test } from "./_utils-browser";
+import { test } from "../../test/_utils-browser";
 import { userEvent } from "vitest/browser";
 import {
   createRoute,
