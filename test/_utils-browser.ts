@@ -1,27 +1,21 @@
 import { ConvexQueryClient } from "@convex-dev/react-query";
 import { QueryClient } from "@tanstack/react-query";
 import { ConvexReactSessionClient } from "convex-helpers/react/sessions";
-import { it } from "vitest";
+import { it, inject } from "vitest";
 
 export const test = it.extend<{
-  convexServerUrl: string;
+  convexBackendUrl: string;
   convexClient: ConvexReactSessionClient;
   convexQueryClient: ConvexQueryClient;
   queryClient: QueryClient;
 }>({
-  convexServerUrl: async ({}, use) => {
-    // TODO: Launch local convex backend
-    const convexServerUrl = "http://localhost:3000";
-
-    // TODO: Push to local backend
-
-    // Provide the convex server url to the test
-    await use(convexServerUrl);
-
-    // TODO: Stop local convex backend
+  convexBackendUrl: async ({}, use) => {
+    const convexBackendUrl = inject("convexBackendUrl");
+    await use(convexBackendUrl);
+    // TODO: Stop the backend
   },
-  convexClient: async ({ convexServerUrl }, use) => {
-    const convexClient = new ConvexReactSessionClient(convexServerUrl);
+  convexClient: async ({ convexBackendUrl }, use) => {
+    const convexClient = new ConvexReactSessionClient(convexBackendUrl);
     await use(convexClient);
   },
   convexQueryClient: async ({ convexClient }, use) => {

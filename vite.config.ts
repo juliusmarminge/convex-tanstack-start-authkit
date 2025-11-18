@@ -24,7 +24,12 @@ const baseConfig = defineConfig({
   esbuild: {
     exclude: ["@workos-inc/node", "@workos/authkit-tanstack-react-start"],
   },
-  plugins: [tanstackStart(), viteReact(), tailwindcss(), nitro()],
+  plugins: [
+    tanstackStart(),
+    viteReact(),
+    tailwindcss(),
+    //nitro()
+  ],
 });
 
 const baseTestConfig = mergeConfig(
@@ -32,7 +37,6 @@ const baseTestConfig = mergeConfig(
   defineVitestConfig({
     test: {
       silent: "passed-only",
-      testTimeout: 10_000,
       execArgv: ["--expose-gc"],
       isolate: false,
       maxWorkers: 1,
@@ -55,7 +59,7 @@ const browserConfig = defineVitestConfig({
       provider: playwright(),
       instances: [{ browser: "chromium" }],
     },
-    setupFiles: ["./test/_setup-browser.ts"],
+    globalSetup: "./test/_setup-browser.ts",
   },
 });
 
