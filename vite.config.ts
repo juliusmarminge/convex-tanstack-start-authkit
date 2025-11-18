@@ -2,7 +2,6 @@ import { defineConfig, mergeConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { nitro } from "nitro/vite";
 import {
   defaultExclude,
   defineConfig as defineVitestConfig,
@@ -12,17 +11,6 @@ import { playwright } from "@vitest/browser-playwright";
 const baseConfig = defineConfig({
   server: {
     port: 3000,
-  },
-  ssr: {
-    external: ["@workos-inc/node", "@workos/authkit-tanstack-react-start"],
-  },
-  build: {
-    rollupOptions: {
-      external: ["@workos-inc/node", "@workos/authkit-tanstack-react-start"],
-    },
-  },
-  esbuild: {
-    exclude: ["@workos-inc/node", "@workos/authkit-tanstack-react-start"],
   },
   plugins: [
     tanstackStart(),
@@ -46,9 +34,6 @@ const baseTestConfig = mergeConfig(
 );
 
 const browserConfig = defineVitestConfig({
-  define: {
-    global: "globalThis",
-  },
   test: {
     css: true,
     includeTaskLocation: true,
