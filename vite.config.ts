@@ -27,10 +27,6 @@ const baseConfig = defineConfig({
   plugins: [tanstackStart(), viteReact(), tailwindcss(), nitro()],
 });
 
-import.meta.env ??= {};
-import.meta.env.NODE_ENV = "test";
-import.meta.env.VITE_CONVEX_URL = "https://test.com";
-
 const baseTestConfig = mergeConfig(
   baseConfig,
   defineVitestConfig({
@@ -69,9 +65,7 @@ const nodeConfig = defineVitestConfig({
     exclude: [...defaultExclude, "convex/**/*", "**/*.browser.test.tsx"],
     name: "node",
     environment: "node",
-    env: {
-      VITE_CONVEX_URL: "https://test.com",
-    },
+    env: {},
     setupFiles: ["./test/_setup-node.ts"],
   },
 });

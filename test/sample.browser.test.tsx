@@ -1,12 +1,21 @@
-import * as React from "react";
-import { expect, test } from "vitest";
-import { SomeComponentToBeTested } from "../src/component/some-component";
-import { render } from "vitest-browser-react";
-import { userEvent } from "vitest/browser";
+/// <reference types="vite/client" />
 
-test("sample", async () => {
-  const $ = await render(<SomeComponentToBeTested />);
-  expect($.getByText("Count: 0")).toBeInTheDocument();
-  await userEvent.click($.getByText("Increment"));
-  expect($.getByText("Count: 1")).toBeInTheDocument();
+import * as React from "react";
+import { expect } from "vitest";
+import { Numbers } from "../src/component/some-component";
+import { render } from "vitest-browser-react";
+import { ConvexProvider } from "convex/react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { test } from "./_utils-browser";
+
+test("sample", async ({ convexClient, queryClient }) => {
+  const $ = await render(
+    <QueryClientProvider client={queryClient}>
+      <ConvexProvider client={convexClient}>
+        <Numbers />
+      </ConvexProvider>
+    </QueryClientProvider>,
+  );
+
+  expect($.getByTestId("numbers")).toBeInTheDocument();
 });
